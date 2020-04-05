@@ -9,6 +9,7 @@
     <Grid x:Name="LayoutRoot" Background="White">
         <Grid.RowDefinitions>
             <RowDefinition />
+            <RowDefinition Height="0.3*"/>
             <RowDefinition />
             <RowDefinition Height="0.5*"/>
             <RowDefinition Height="0.15*"/>
@@ -18,9 +19,10 @@
             <ColumnDefinition />
         </Grid.ColumnDefinitions>
         <TextBlock x:Name="textBlock" Grid.Column="0" Grid.ColumnSpan="2" TextAlignment="Center" VerticalAlignment="Center" FontSize="50" Text="Need load" />
-        <Button Grid.Column="0" Grid.Row="1">Next</Button>
-        <Button Grid.Column="1" Grid.Row="1">Show</Button>
-        <Button Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="2">Load</Button>
-        <TextBlock x:Name="messageBlock" Grid.Column="0" Grid.Row="3" Grid.ColumnSpan="2" TextAlignment="Center" VerticalAlignment="Center" FontWeight="Bold"></TextBlock>
+        <Button x:Name="translateBtn" Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2">Translate</Button>
+        <Button Grid.Column="0" Grid.Row="2">Next</Button>
+        <Button Grid.Column="1" Grid.Row="2">Show</Button>
+        <Button Grid.Column="0" Grid.Row="3" Grid.ColumnSpan="2">Load</Button>
+        <TextBlock x:Name="messageBlock" Grid.Column="0" Grid.Row="4" Grid.ColumnSpan="2" TextAlignment="Center" VerticalAlignment="Center" FontWeight="Bold"></TextBlock>
     </Grid>
 </Window>

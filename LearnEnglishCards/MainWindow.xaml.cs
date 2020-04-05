@@ -26,9 +26,18 @@ namespace LearnEnglishCards
         string answer = "";
         string question = "";
         bool isAnswer = false;
+        string path = "English.xlsx";
+        YandexTranslator yt;
         public MainWindow()
         {
             InitializeComponent();
+            yt = new YandexTranslator();
+            if (Environment.GetCommandLineArgs().Length > 1)
+            {
+                //MessageBox.Show(Environment.GetCommandLineArgs()[1].ToString());
+                path = Environment.GetCommandLineArgs()[1].ToString();
+            }
+            
             foreach (UIElement c in LayoutRoot.Children)
             {
                 if (c is System.Windows.Controls.Button)
@@ -42,21 +51,16 @@ namespace LearnEnglishCards
         {
             Microsoft.Office.Interop.Excel.Application ObjExcel = new Microsoft.Office.Interop.Excel.Application();
             string s = (string)((System.Windows.Controls.Button)e.OriginalSource).Content;
-            if (s == "Show")
-            {
-                FindAndShow();
-            }
-            
-            if (s=="Next")
-            {
-                ShowMeCards();
-            }
+            if (s == "Translate") Translate();
+            if (s == "Show") FindAndShow();
+
+            if (s=="Next") ShowMeCards();
 
             if (s == "Load")
             {
                 try
                 {
-                    Microsoft.Office.Interop.Excel.Workbook ObjWorkBook = ObjExcel.Workbooks.Open(Directory.GetCurrentDirectory() + @"\English.xlsx", 0, false, 5, "", "", false, Microsoft.Office.Interop.Excel.XlPlatform.xlWindows, "", true, false, 0, true, false, false);
+                    Microsoft.Office.Interop.Excel.Workbook ObjWorkBook = ObjExcel.Workbooks.Open(Directory.GetCurrentDirectory() + @"\"+""+ path + "", 0, false, 5, "", "", false, Microsoft.Office.Interop.Excel.XlPlatform.xlWindows, "", true, false, 0, true, false, false);
                     Microsoft.Office.Interop.Excel.Worksheet ObjWorkSheet;
                     ObjWorkSheet = (Microsoft.Office.Interop.Excel.Worksheet)ObjWorkBook.Sheets[1];
                     var lastCell = ObjWorkSheet.Cells.SpecialCells(Microsoft.Office.Interop.Excel.XlCellType.xlCellTypeLastCell);
@@ -101,6 +105,10 @@ namespace LearnEnglishCards
                 }
             }
         }
+        public void Translate()
+        {
+            textBlock.Text = yt.Translate(textBlock.Text, "en-ru");
+        }
         public void ShowMeCards()
         {
             //arr[a,b] - a (столбец), b (строка)
@@ -111,6 +119,7 @@ namespace LearnEnglishCards
             question = arr[0, value].ToString();
             answer = arr[1, value].ToString();
             textBlock.Text= question;
+            isAnswer = false;
         }
         public void FindAndShow()
         {
