@@ -11,12 +11,12 @@ namespace LearnEnglishCards
 {
     class YandexTranslator
     {
-        public string Translate(string s, string lang)
+        public string Translate(string s, string lang,string token)
         {
             if (s.Length > 0)
             {
                 WebRequest request = WebRequest.Create("https://translate.yandex.net/api/v1.5/tr.json/translate?"
-                    + "key=key"
+                    + "key="+token
                     + "&text=" + s
                     + "&lang=" + lang);
 
